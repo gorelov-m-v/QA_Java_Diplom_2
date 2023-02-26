@@ -4,14 +4,26 @@ import static io.restassured.RestAssured.given;
 
 public class UserSteps {
     Paths paths = new Paths();
+    Response response;
+    boolean ActualSuccessMessage;
+    String ActualAccessToken;
+    int ActualStatusCode;
+    String ActualErrorMessage;
 
     public Response createUser(User user) {
-        Response response = given()
+        response = given()
                 .header("Content-type", "application/json")
                 .and()
                 .body(user)
                 .when()
-                .post(paths.getCREATE_USER_PATH());
+                .post(paths.getCREATE_USER_PATH())
+                .then()
+                .extract()
+                .response();
+        ActualSuccessMessage = response.path("success");
+        ActualAccessToken =  response.path("accessToken");
+        ActualStatusCode = response.getStatusCode();
+        ActualErrorMessage = response.path("message");
         return response;
     }
 
