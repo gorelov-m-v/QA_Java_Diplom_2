@@ -43,7 +43,14 @@ public class UserSteps {
                 .and()
                 .body(user)
                 .when()
-                .post(paths.getLOGIN_USER_PATH());
+                .post(paths.getLOGIN_USER_PATH())
+                .then()
+                .extract()
+                .response();
+        ActualSuccessMessage = response.path("success");
+        ActualAccessToken =  response.path("accessToken");
+        ActualStatusCode = response.getStatusCode();
+        ActualErrorMessage = response.path("message");
         return response;
     }
 
