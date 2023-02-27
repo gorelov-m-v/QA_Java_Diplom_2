@@ -2,7 +2,6 @@ import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import Constants.*;
 
 public class LoginTest extends TestBase {
 
