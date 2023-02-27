@@ -7,9 +7,6 @@ import Constants.*;
 
 public class CreateUserTest extends TestBase {
 
-    Messages messages = new Messages();
-    Urls urls = new Urls();
-
     @Before
     public void setUp(){
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();

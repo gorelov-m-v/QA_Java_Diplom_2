@@ -1,115 +1,95 @@
 import Util.Generator;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import Constants.*;
 
-public class ChangeUserDataTest {
-    User user = new User().createRandomUserData();
-    User newUser = new User().createRandomUserData();
-    UserSteps userSteps = new UserSteps();
-    Urls urls = new Urls();
-    Messages messages = new Messages();
-    Generator generator = new Generator();
-    private String accessToken;
-    private String newUserAccessToken;
-    private String actualEmail;
-    private String actualName;
-    private String message;
+public class ChangeUserDataTest extends TestBase {
 
     @Before
     public void setUp() {
+        firstUser = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        userSteps.createUser(user);
-        JsonPath jsnPath = userSteps.loginUser(user).jsonPath();
-        accessToken = jsnPath.get("accessToken");
+        userSteps.createUser(firstUser);
     }
 
     @Test
     public void changeUserEmailWithAuthShouldReturn_200(){
-        User userWithNewData = new User(generator.getRANDOM_EMAIL(), user.getPassword(), user.getName());
-        Response response = userSteps.changeUserData(userWithNewData, accessToken);
-        JsonPath jsnPath = userSteps.changeUserData(userWithNewData, accessToken).jsonPath();
-        actualEmail = jsnPath.get("user.email");
+        newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
+        userSteps.changeUserData(newData, userSteps.ActualAccessToken);
 
-        Assert.assertEquals("Почтовый адрес не совпал", generator.getRANDOM_EMAIL(), actualEmail);
-        response.then().statusCode(200);
+        checkStatusCode(200);
+        checkSuccessMessage(true);
+        checkEmail(generator.getRANDOM_EMAIL());
     }
 
     @Test
     public void changeUserPasswordWithAuthShouldReturn_200(){
-        User userWithNewData = new User(user.getEmail(), generator.getRANDOM_PASSWORD(), user.getName());
-        Response response = userSteps.changeUserData(userWithNewData, accessToken);
-        response.then().statusCode(200);
+        newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
+        userSteps.changeUserData(newData, userSteps.ActualAccessToken);
+
+        checkStatusCode(200);
+        checkSuccessMessage(true);
     }
 
     @Test
     public void changeUserNameWithAuthShouldReturn_200(){
-        User userWithNewData = new User(user.getEmail(), user.getPassword(), generator.getRANDOM_NAME());
-        Response response = userSteps.changeUserData(userWithNewData, accessToken);
-        JsonPath jsnPath = userSteps.changeUserData(userWithNewData, accessToken).jsonPath();
-        actualName = jsnPath.get("user.name");
+        newData = new User(firstUser.getEmail(), firstUser.getPassword(), generator.getRANDOM_NAME());
+        userSteps.changeUserData(newData, userSteps.ActualAccessToken);
 
-        Assert.assertEquals("Почтовый адрес не совпал", generator.getRANDOM_NAME(), actualName);
-        response.then().statusCode(200);
+        checkStatusCode(200);
+        checkSuccessMessage(true);
+        checkName(generator.getRANDOM_NAME());
     }
 
     @Test
     public void changeUserEmailWithAuthAndSameEmailShouldReturn_403(){
-        userSteps.createUser(newUser);
-        JsonPath jsnPath_1 = userSteps.loginUser(newUser).jsonPath();
-        newUserAccessToken = jsnPath_1.get("newUserAccessToken");
-        Response response = userSteps.changeUserData(newUser, accessToken);
-        JsonPath jsnPath_2 = response.jsonPath();
-        message = jsnPath_2.get("message");
+        secondUser = new User().createRandomUserData();
+        userSteps2.createUser(secondUser);
+        userSteps.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), userSteps2.ActualAccessToken);
 
-        Assert.assertEquals("Текст ошибки не совпал", messages.getUSER_EMAIL_ALREADY_EXISTS(), message);
-        response.then().statusCode(403);
+        checkStatusCode(403);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getUSER_EMAIL_ALREADY_EXISTS());
     }
 
     @Test
     public void changeUserEmailWithoutAuthShouldReturn_401(){
-        User userWithNewData = new User(generator.getRANDOM_EMAIL(), user.getPassword(), user.getName());
-        Response response = userSteps.changeUserData(userWithNewData, "");
-        JsonPath jsnPath = response.jsonPath();
-        message = jsnPath.get("message");
+        newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
+        userSteps.changeUserData(newData, "");
 
-        Assert.assertEquals("Текст ошибки не совпал", messages.getYOU_SHOULD_BE_AUTHORISED(), message);
-        response.then().statusCode(401);
+        checkStatusCode(401);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
     }
 
     @Test
     public void changeUserPasswordWithoutAuthShouldReturn_401(){
-        User userWithNewData = new User(user.getEmail(), generator.getRANDOM_EMAIL(), user.getName());
-        Response response = userSteps.changeUserData(userWithNewData, "");
-        JsonPath jsnPath = response.jsonPath();
-        message = jsnPath.get("message");
+        newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
+        userSteps.changeUserData(newData, "");
 
-        Assert.assertEquals("Текст ошибки не совпал", messages.getYOU_SHOULD_BE_AUTHORISED(), message);
-        response.then().statusCode(401);
+        checkStatusCode(401);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
     }
 
     @Test
     public void changeUserNameWithoutAuthShouldReturn_401(){
-        User userWithNewData = new User(user.getEmail(), user.getPassword(), generator.getRANDOM_NAME());
-        Response response = userSteps.changeUserData(userWithNewData, "");
-        JsonPath jsnPath = response.jsonPath();
-        message = jsnPath.get("message");
+        newData = new User(firstUser.getEmail(), firstUser.getPassword(), generator.getRANDOM_NAME());
+        userSteps.changeUserData(newData, "");
 
-        Assert.assertEquals("Текст ошибки не совпал", messages.getYOU_SHOULD_BE_AUTHORISED(), message);
-        response.then().statusCode(401);
+        checkStatusCode(401);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
     }
 
     @After
     public void tearDown() {
-        if(accessToken != null) {
-            userSteps.deleteUser(accessToken);
-            if(newUserAccessToken != null) {
-                userSteps.deleteUser(newUserAccessToken);
+        if(userSteps.ActualAccessToken != null) {
+            userSteps.deleteUser(userSteps.ActualAccessToken);
+            if(userSteps2.ActualAccessToken != null) {
+                userSteps.deleteUser(userSteps2.ActualAccessToken );
             }
         }
     }

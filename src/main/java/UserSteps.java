@@ -9,6 +9,8 @@ public class UserSteps {
     String ActualAccessToken;
     int ActualStatusCode;
     String ActualErrorMessage;
+    String ActualEmail;
+    String ActualName;
 
     public Response createUser(User user) {
         response = given()
@@ -61,7 +63,16 @@ public class UserSteps {
                 .and()
                 .body(userWithNewData)
                 .when()
-                .patch(paths.getCHANGE_USER_DATA_PATH());
+                .patch(paths.getCHANGE_USER_DATA_PATH())
+                .then()
+                .extract()
+                .response();
+        ActualSuccessMessage = response.path("success");
+        ActualAccessToken =  response.path("accessToken");
+        ActualStatusCode = response.getStatusCode();
+        ActualErrorMessage = response.path("message");
+        ActualEmail = response.path("user.email");
+        ActualName = response.path("user.name");
         return response;
     }
 }
