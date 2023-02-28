@@ -3,7 +3,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 
-
 public class CreateOrderTest extends TestBase {
 
     @Before
@@ -44,6 +43,15 @@ public class CreateOrderTest extends TestBase {
         System.out.println(steps1.ActualErrorMessage);
         System.out.println(steps1.ActualStatusCode);
         System.out.println(steps1.ActualSuccessMessage);
+    }
+
+    @Test
+    public void createOrder4() {
+        Steps steps1 = new Steps();
+        Ingredients ingredients = new Ingredients(generator.getRandomList(3));
+        steps1.createOrder(ingredients, steps.ActualAccessToken);
+
+        System.out.println(steps1.ActualStatusCode);
     }
 }
 

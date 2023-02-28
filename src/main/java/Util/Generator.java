@@ -20,16 +20,24 @@ public class Generator {
         return RANDOM_NAME;
     }
 
-    public String getRANDOM_TOKEN() {
+    public String getRandomString(int length) {
         Random random = new Random();
         String lower = "abcdefghijklmnopqrstuvwxyz";
         String digits = "0123456789";
         String combination = lower + digits;
-        char[] password = new char[30];
-        for(int i = 0; i < 30; i++) {
+        char[] password = new char[length];
+        for(int i = 0; i < length; i++) {
             password[i] = combination.charAt(random.nextInt(combination.length()));
         }
-        String result = "Bearer " + new String(password);
+        String result = new String(password);
+        return result;
+    }
+
+    public List<String> getRandomList(int quantity) {
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < quantity; i++) {
+            result.add(getRandomString(24));
+        }
         return result;
     }
 

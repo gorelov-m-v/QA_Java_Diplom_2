@@ -90,11 +90,13 @@ public class Steps {
                 .extract()
                 .response();
         ActualStatusCode = response.getStatusCode();
-        ActualSuccessMessage = response.path("success");
-        ActualErrorMessage = response.path("message");
-        if(ActualStatusCode == 200) {
-        ActualOrderNumber = response.path("order.number");
-        ActualBurgerName = response.path("name");
+        if(ActualStatusCode != 500) {
+            ActualSuccessMessage = response.path("success");
+            ActualErrorMessage = response.path("message");
+            if (ActualStatusCode == 200) {
+                ActualOrderNumber = response.path("order.number");
+                ActualBurgerName = response.path("name");
+            }
         }
         return response;
     }
