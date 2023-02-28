@@ -1,8 +1,6 @@
 import Constants.Paths;
 import io.restassured.response.Response;
-
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 
 public class Steps {
@@ -93,6 +91,7 @@ public class Steps {
                 .response();
         ActualStatusCode = response.getStatusCode();
         ActualSuccessMessage = response.path("success");
+        ActualErrorMessage = response.path("message");
         if(ActualStatusCode == 200) {
         ActualOrderNumber = response.path("order.number");
         ActualBurgerName = response.path("name");

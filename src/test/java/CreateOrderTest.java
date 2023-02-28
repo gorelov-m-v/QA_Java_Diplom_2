@@ -1,11 +1,8 @@
 import io.restassured.RestAssured;
-import org.codehaus.groovy.control.CompilationUnit;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+
 
 public class CreateOrderTest extends TestBase {
 
@@ -38,15 +35,15 @@ public class CreateOrderTest extends TestBase {
         checkBurgerName(steps.ActualBurgerName);
     }
 
-//    @Test
-//    public void createOrder3() {
-//        Ingredients ingredients = new Ingredients(new ArrayList<>());
-//        steps.createOrder(ingredients, steps.ActualAccessToken);
-//
-//        checkStatusCode(400);
-//        checkSuccessMessage(false);
-//        checkErrorMessage(messages.getINGREDIENTS_MUST_PROVIDED());
-//        System.out.println(steps.ActualErrorMessage);
-//    }
+    @Test
+    public void createOrder3() {
+        Steps steps1 = new Steps();
+        Ingredients ingredients = new Ingredients(new ArrayList<>());
+        steps1.createOrder(ingredients, steps.ActualAccessToken);
+
+        System.out.println(steps1.ActualErrorMessage);
+        System.out.println(steps1.ActualStatusCode);
+        System.out.println(steps1.ActualSuccessMessage);
+    }
 }
 
