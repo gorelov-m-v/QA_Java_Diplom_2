@@ -5,8 +5,8 @@ import org.junit.Assert;
 
 public class TestBase {
 
-    UserSteps userSteps = new UserSteps();
-    UserSteps userSteps2 = new UserSteps();
+    Steps steps = new Steps();
+    Steps steps2 = new Steps();
     User firstUser;
     User secondUser;
 
@@ -17,22 +17,26 @@ public class TestBase {
 
 
     public void checkStatusCode(int expected) {
-        Assert.assertEquals(expected, userSteps.ActualStatusCode);
+        Assert.assertEquals(expected, steps.ActualStatusCode);
     }
 
     public void checkSuccessMessage(boolean expected) {
-        Assert.assertEquals(expected,userSteps.ActualSuccessMessage);
+        Assert.assertEquals(expected, steps.ActualSuccessMessage);
     }
 
     public void checkAccessTokenNotNull() {
-        Assert.assertNotNull(userSteps.ActualAccessToken);
+        Assert.assertNotNull(steps.ActualAccessToken);
     }
 
     public void checkErrorMessage(String expected) {
-        Assert.assertEquals(expected, userSteps.ActualErrorMessage);
+        Assert.assertEquals(expected, steps.ActualErrorMessage);
     }
 
-    public void checkEmail(String expected) { Assert.assertEquals(expected, userSteps.ActualEmail);}
+    public void checkEmail(String expected) { Assert.assertEquals(expected, steps.ActualEmail);}
 
-    public void checkName(String expected) { Assert.assertEquals(expected, userSteps.ActualName);}
+    public void checkName(String expected) { Assert.assertEquals(expected, steps.ActualName);}
+
+    public void checkBurgerName(String expected) { Assert.assertNotNull(steps.ActualBurgerName);}
+
+    public void checkOrderNumber(int expected) { Assert.assertNotNull(steps.ActualOrderNumber);}
 }

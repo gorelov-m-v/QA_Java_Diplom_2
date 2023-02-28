@@ -1,14 +1,18 @@
-public class Ingredients {
-    private String ingredients;
+import java.util.List;
 
-    public String getIngredients() {
+public class Ingredients {
+
+    private List<String> ingredients;
+
+    public List<String> getIngredients() {
         return ingredients;
     }
-    public void setIngredients(String ingredients) {
+
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Ingredients(String ingredients) {
+    public Ingredients(List<String> ingredients){
         this.ingredients = ingredients;
     }
 }

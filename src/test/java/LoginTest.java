@@ -9,12 +9,12 @@ public class LoginTest extends TestBase {
     public void setUp() {
         firstUser = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        userSteps.createUser(firstUser);
+        steps.createUser(firstUser);
     }
 
     @Test
     public void loginWithValidParamsShouldReturn_200() {
-        userSteps.loginUser(firstUser);
+        steps.loginUser(firstUser);
 
         checkSuccessMessage(true);
         checkStatusCode(200);
@@ -22,7 +22,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void loginWithWrongLoginShouldReturn_401() {
-        userSteps.loginUser(new User("wrongEmail123", firstUser.getPassword(), ""));
+        steps.loginUser(new User("wrongEmail123", firstUser.getPassword(), ""));
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -31,7 +31,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void loginWithWrongPasswordShouldReturn_401() {
-        userSteps.loginUser(new User(firstUser.getEmail(), "wrongPassword123", ""));
+        steps.loginUser(new User(firstUser.getEmail(), "wrongPassword123", ""));
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -40,8 +40,8 @@ public class LoginTest extends TestBase {
 
     @After
     public void tearDown() {
-        if(userSteps.ActualAccessToken != null) {
-            userSteps.deleteUser(userSteps.ActualAccessToken);
+        if(steps.ActualAccessToken != null) {
+            steps.deleteUser(steps.ActualAccessToken);
         }
     }
 }

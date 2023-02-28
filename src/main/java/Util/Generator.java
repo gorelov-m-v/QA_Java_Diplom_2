@@ -2,6 +2,8 @@ package Util;
 
 import com.github.javafaker.Faker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Generator {
@@ -21,15 +23,24 @@ public class Generator {
 
     public String getRANDOM_TOKEN() {
         Random random = new Random();
-        String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lower = "abcdefghijklmnopqrstuvwxyz";
         String digits = "0123456789";
-        String combination = upper + lower + digits;
+        String combination = lower + digits;
         char[] password = new char[30];
         for(int i = 0; i < 30; i++) {
             password[i] = combination.charAt(random.nextInt(combination.length()));
         }
         String result = "Bearer " + new String(password);
         return result;
+    }
+
+    public List<String> getOrderList(List<String> ingredientsList) {
+        int size = new Random().nextInt(ingredientsList.size());
+        List<String> orderList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int index = new Random().nextInt(ingredientsList.size());
+            orderList.add(ingredientsList.get(index));
+        }
+        return orderList;
     }
 }

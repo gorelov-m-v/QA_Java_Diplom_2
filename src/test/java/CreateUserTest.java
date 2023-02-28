@@ -13,7 +13,7 @@ public class CreateUserTest extends TestBase {
     @Test
     public void creatingUserWithValidParamShouldReturn_200() {
         User validUserData = new User().createRandomUserData();
-        userSteps.createUser(validUserData);
+        steps.createUser(validUserData);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -23,8 +23,8 @@ public class CreateUserTest extends TestBase {
     @Test
     public void creatingUserWithSameDataShouldReturn_403() {
         User validUserData = new User().createRandomUserData();
-        userSteps.createUser(validUserData);
-        userSteps.createUser(validUserData);
+        steps.createUser(validUserData);
+        steps.createUser(validUserData);
 
         checkStatusCode(403);
         checkSuccessMessage(false);
@@ -34,7 +34,7 @@ public class CreateUserTest extends TestBase {
     @Test
     public void creatingUserWithoutNameShouldReturn_403() {
         User userDataWithoutName = new User().createUserWithoutName();
-        userSteps.createUser(userDataWithoutName);
+        steps.createUser(userDataWithoutName);
 
         checkStatusCode(403);
         checkErrorMessage(messages.getCREATING_USER_WITHOUT_FIELD());
@@ -44,7 +44,7 @@ public class CreateUserTest extends TestBase {
     @Test
     public void creatingUserWithoutEmailShouldReturn_403() {
         User userDataWithoutEmail = new User().createUserWithoutEmail();
-        userSteps.createUser(userDataWithoutEmail);
+        steps.createUser(userDataWithoutEmail);
 
         checkStatusCode(403);
         checkErrorMessage(messages.getCREATING_USER_WITHOUT_FIELD());
@@ -54,7 +54,7 @@ public class CreateUserTest extends TestBase {
     @Test
     public void creatingUserWithoutPasswordShouldReturn_403() {
         User userDataWithoutPassword = new User().createUserWithoutPassword();
-        userSteps.createUser(userDataWithoutPassword);
+        steps.createUser(userDataWithoutPassword);
 
         checkStatusCode(403);
         checkErrorMessage(messages.getCREATING_USER_WITHOUT_FIELD());
@@ -63,8 +63,8 @@ public class CreateUserTest extends TestBase {
 
     @After
     public void tearDown() {
-        if(userSteps.ActualAccessToken != null) {
-            userSteps.deleteUser(userSteps.ActualAccessToken);
+        if(steps.ActualAccessToken != null) {
+            steps.deleteUser(steps.ActualAccessToken);
         }
     }
 }

@@ -1,8 +1,11 @@
 import Constants.Paths;
 import io.restassured.response.Response;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 
-public class UserSteps {
+public class Steps {
     Paths paths = new Paths();
     Response response;
     boolean ActualSuccessMessage;
@@ -11,6 +14,8 @@ public class UserSteps {
     String ActualErrorMessage;
     String ActualEmail;
     String ActualName;
+    int ActualOrderNumber;
+    String  ActualBurgerName;
 
     public Response createUser(User user) {
         response = given()
@@ -74,5 +79,40 @@ public class UserSteps {
         ActualEmail = response.path("user.email");
         ActualName = response.path("user.name");
         return response;
+    }
+
+    public Response createOrder(Ingredients ingredients, String accessToken) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", accessToken)
+                .body(ingredients)
+                .when()
+                .post(paths.getCREATE_ORDER())
+                .then()
+                .extract()
+                .response();
+        ActualStatusCode = response.getStatusCode();
+        ActualSuccessMessage = response.path("success");
+        if(ActualStatusCode == 200) {
+        ActualOrderNumber = response.path("order.number");
+        ActualBurgerName = response.path("name");
+        }
+        return response;
+    }
+
+    public List<String> getIngredientsList() {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .when()
+                .get(paths.getGET_INGREDIENTS())
+                .then()
+                .extract()
+                .response();
+        List<String> ingredients = response.path("data._id");
+//        String[] array = new String[ingredients.size()];
+//        for(int i = 0; i < ingredients.size(); i++) {
+//            array[i] = ingredients.get(i);
+//        }
+        return ingredients;
     }
 }

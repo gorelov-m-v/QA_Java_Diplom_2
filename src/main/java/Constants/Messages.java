@@ -21,4 +21,9 @@ public class Messages {
     public String getUSER_EMAIL_ALREADY_EXISTS() {
         return USER_EMAIL_ALREADY_EXISTS;
     }
+
+    public String INGREDIENTS_MUST_PROVIDED = "Ingredient ids must be provided";
+    public String getINGREDIENTS_MUST_PROVIDED() {
+        return INGREDIENTS_MUST_PROVIDED;
+    }
 }
