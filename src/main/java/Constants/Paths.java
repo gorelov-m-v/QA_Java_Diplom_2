@@ -25,4 +25,9 @@ public class Paths {
     public String getCREATE_ORDER() {
         return CREATE_ORDER;
     }
+
+    private String GET_ORDER = "/api/orders";
+    public String getGET_ORDER() {
+        return GET_ORDER;
+    }
 }

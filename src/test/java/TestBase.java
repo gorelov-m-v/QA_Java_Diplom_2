@@ -39,4 +39,6 @@ public class TestBase {
     public void checkBurgerName(String expected) { Assert.assertNotNull(steps.ActualBurgerName);}
 
     public void checkOrderNumber(int expected) { Assert.assertNotNull(steps.ActualOrderNumber);}
+
+    public void checkOrderNumber() { Assert.assertEquals(steps.ActualOrderNumber, steps.OrderNumber);}
 }

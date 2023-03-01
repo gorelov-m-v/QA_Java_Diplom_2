@@ -1,4 +1,5 @@
 import Constants.Paths;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import java.util.List;
 import static io.restassured.RestAssured.given;
@@ -14,6 +15,7 @@ public class Steps {
     String ActualName;
     int ActualOrderNumber;
     String  ActualBurgerName;
+    int OrderNumber;
 
     public Response createUser(User user) {
         response = given()
@@ -92,10 +94,13 @@ public class Steps {
         ActualStatusCode = response.getStatusCode();
         if(ActualStatusCode != 500) {
             ActualSuccessMessage = response.path("success");
-            ActualErrorMessage = response.path("message");
-            if (ActualStatusCode == 200) {
+            if (ActualStatusCode == 400) {
+                ActualErrorMessage = response.path("message");
+            }
+            else if (ActualStatusCode == 200) {
                 ActualOrderNumber = response.path("order.number");
                 ActualBurgerName = response.path("name");
+                OrderNumber = response.path("order.number");
             }
         }
         return response;
@@ -110,10 +115,25 @@ public class Steps {
                 .extract()
                 .response();
         List<String> ingredients = response.path("data._id");
-//        String[] array = new String[ingredients.size()];
-//        for(int i = 0; i < ingredients.size(); i++) {
-//            array[i] = ingredients.get(i);
-//        }
         return ingredients;
+    }
+
+    public void getOrder(String accessToken) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", accessToken)
+                .when()
+                .get(paths.getGET_ORDER())
+                .then()
+                .extract()
+                .response();
+        ActualStatusCode = response.getStatusCode();
+        ActualSuccessMessage = response.path("success");
+        if(ActualStatusCode == 401) {
+            ActualErrorMessage = response.path("message");
+        }
+        else if (ActualStatusCode == 200) {
+            OrderNumber = response.path("orders[0].number");
+        }
     }
 }

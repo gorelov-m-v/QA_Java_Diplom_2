@@ -39,10 +39,6 @@ public class CreateOrderTest extends TestBase {
         Steps steps1 = new Steps();
         Ingredients ingredients = new Ingredients(new ArrayList<>());
         steps1.createOrder(ingredients, steps.ActualAccessToken);
-
-        System.out.println(steps1.ActualErrorMessage);
-        System.out.println(steps1.ActualStatusCode);
-        System.out.println(steps1.ActualSuccessMessage);
     }
 
     @Test
@@ -50,8 +46,6 @@ public class CreateOrderTest extends TestBase {
         Steps steps1 = new Steps();
         Ingredients ingredients = new Ingredients(generator.getRandomList(3));
         steps1.createOrder(ingredients, steps.ActualAccessToken);
-
-        System.out.println(steps1.ActualStatusCode);
     }
 }
 
