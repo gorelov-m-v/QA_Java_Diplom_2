@@ -3,20 +3,20 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GetOrderTest extends TestBase {
+public class GetOrderTest extends OrderHelper {
 
     @Before
     public void setUp() {
-        firstUser = new User().createRandomUserData();
+        user = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        steps.createUser(firstUser);
-        Ingredients ingredients = new Ingredients(generator.getOrderList(steps.getIngredientsList()));
-        steps.createOrder(ingredients, steps.ActualAccessToken);
+        stepsUser.createUser(user);
+        Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
+        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
     }
 
     @Test
     public void getOrder1() {
-        steps.getOrder(steps.ActualAccessToken);
+        stepsOrder.getOrder(stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -25,7 +25,7 @@ public class GetOrderTest extends TestBase {
 
     @Test
     public void getOrder2() {
-        steps.getOrder("");
+        stepsOrder.getOrder("");
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -34,8 +34,8 @@ public class GetOrderTest extends TestBase {
 
     @After
     public void tearDown() {
-        if(steps.ActualAccessToken != null) {
-            steps.deleteUser(steps.ActualAccessToken);
+        if(stepsUser.ActualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.ActualAccessToken);
         }
     }
 }

@@ -3,18 +3,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LoginTest extends TestBase {
+public class LoginTest extends UserHelper {
 
     @Before
     public void setUp() {
         firstUser = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        steps.createUser(firstUser);
+        stepsUser.createUser(firstUser);
     }
 
     @Test
     public void loginWithValidParamsShouldReturn_200() {
-        steps.loginUser(firstUser);
+        stepsUser.loginUser(firstUser);
 
         checkSuccessMessage(true);
         checkStatusCode(200);
@@ -22,7 +22,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void loginWithWrongLoginShouldReturn_401() {
-        steps.loginUser(new User("wrongEmail123", firstUser.getPassword(), ""));
+        stepsUser.loginUser(new User("wrongEmail123", firstUser.getPassword(), ""));
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -31,7 +31,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void loginWithWrongPasswordShouldReturn_401() {
-        steps.loginUser(new User(firstUser.getEmail(), "wrongPassword123", ""));
+        stepsUser.loginUser(new User(firstUser.getEmail(), "wrongPassword123", ""));
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -40,8 +40,8 @@ public class LoginTest extends TestBase {
 
     @After
     public void tearDown() {
-        if(steps.ActualAccessToken != null) {
-            steps.deleteUser(steps.ActualAccessToken);
+        if(stepsUser.ActualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.ActualAccessToken);
         }
     }
 }

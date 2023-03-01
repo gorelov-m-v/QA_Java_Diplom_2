@@ -3,49 +3,53 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 
-public class CreateOrderTest extends TestBase {
+public class CreateOrderTest extends OrderHelper {
 
     @Before
     public void setUp() {
-        firstUser = new User().createRandomUserData();
+        user = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        steps.createUser(firstUser);
+        stepsUser.createUser(user);
     }
 
     @Test
     public void createOrder() {
-        Ingredients ingredients = new Ingredients(generator.getOrderList(steps.getIngredientsList()));
-        steps.createOrder(ingredients, steps.ActualAccessToken);
+        Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
+        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkOrderNumber(steps.ActualOrderNumber);
-        checkBurgerName(steps.ActualBurgerName);
+        checkOrderNumber(stepsOrder.ActualOrderNumber);
+        checkBurgerName(stepsOrder.ActualBurgerName);
     }
 
     @Test
     public void createOrder2() {
-        Ingredients ingredients = new Ingredients(generator.getOrderList(steps.getIngredientsList()));
-        steps.createOrder(ingredients, "");
+        Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
+        stepsOrder.createOrder(ingredients, "");
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkOrderNumber(steps.ActualOrderNumber);
-        checkBurgerName(steps.ActualBurgerName);
+        checkOrderNumber(stepsOrder.ActualOrderNumber);
+        checkBurgerName(stepsOrder.ActualBurgerName);
     }
 
     @Test
     public void createOrder3() {
-        Steps steps1 = new Steps();
         Ingredients ingredients = new Ingredients(new ArrayList<>());
-        steps1.createOrder(ingredients, steps.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+
+        checkStatusCode(400);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getINGREDIENTS_MUST_PROVIDED());
     }
 
     @Test
     public void createOrder4() {
-        Steps steps1 = new Steps();
         Ingredients ingredients = new Ingredients(generator.getRandomList(3));
-        steps1.createOrder(ingredients, steps.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+
+        checkStatusCode(500);
     }
 }
 

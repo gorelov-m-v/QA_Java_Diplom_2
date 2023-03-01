@@ -3,19 +3,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ChangeUserDataTest extends TestBase {
+public class ChangeUserDataTest extends UserHelper {
 
     @Before
     public void setUp() {
         firstUser = new User().createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
-        steps.createUser(firstUser);
+        stepsUser.createUser(firstUser);
     }
 
     @Test
     public void changeUserEmailWithAuthShouldReturn_200(){
         newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
-        steps.changeUserData(newData, steps.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -25,7 +25,7 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserPasswordWithAuthShouldReturn_200(){
         newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
-        steps.changeUserData(newData, steps.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -34,7 +34,7 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserNameWithAuthShouldReturn_200(){
         newData = new User(firstUser.getEmail(), firstUser.getPassword(), generator.getRANDOM_NAME());
-        steps.changeUserData(newData, steps.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -44,8 +44,8 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserEmailWithAuthAndSameEmailShouldReturn_403(){
         secondUser = new User().createRandomUserData();
-        steps2.createUser(secondUser);
-        steps.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), steps2.ActualAccessToken);
+        stepsUser2.createUser(secondUser);
+        stepsUser.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), stepsUser2.ActualAccessToken);
 
         checkStatusCode(403);
         checkSuccessMessage(false);
@@ -55,7 +55,7 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserEmailWithoutAuthShouldReturn_401(){
         newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
-        steps.changeUserData(newData, "");
+        stepsUser.changeUserData(newData, "");
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -65,7 +65,7 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserPasswordWithoutAuthShouldReturn_401(){
         newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
-        steps.changeUserData(newData, "");
+        stepsUser.changeUserData(newData, "");
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -75,7 +75,7 @@ public class ChangeUserDataTest extends TestBase {
     @Test
     public void changeUserNameWithoutAuthShouldReturn_401(){
         newData = new User(firstUser.getEmail(), firstUser.getPassword(), generator.getRANDOM_NAME());
-        steps.changeUserData(newData, "");
+        stepsUser.changeUserData(newData, "");
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -84,10 +84,10 @@ public class ChangeUserDataTest extends TestBase {
 
     @After
     public void tearDown() {
-        if(steps.ActualAccessToken != null) {
-            steps.deleteUser(steps.ActualAccessToken);
-            if(steps2.ActualAccessToken != null) {
-                steps.deleteUser(steps2.ActualAccessToken );
+        if(stepsUser.ActualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.ActualAccessToken);
+            if(stepsUser2.ActualAccessToken != null) {
+                stepsUser.deleteUser(stepsUser2.ActualAccessToken );
             }
         }
     }
