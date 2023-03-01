@@ -53,10 +53,13 @@ public class StepsUser {
                 .then()
                 .extract()
                 .response();
-        ActualSuccessMessage = response.path("success");
-        ActualAccessToken =  response.path("accessToken");
         ActualStatusCode = response.getStatusCode();
-        ActualErrorMessage = response.path("message");
+        ActualSuccessMessage = response.path("success");
+        if (ActualStatusCode == 401) {
+            ActualErrorMessage = response.path("message");
+        } else if (ActualStatusCode == 200) {
+            ActualAccessToken = response.path("accessToken");
+        }
         return response;
     }
 
@@ -71,12 +74,14 @@ public class StepsUser {
                 .then()
                 .extract()
                 .response();
-        ActualSuccessMessage = response.path("success");
-        ActualAccessToken =  response.path("accessToken");
         ActualStatusCode = response.getStatusCode();
-        ActualErrorMessage = response.path("message");
-        ActualEmail = response.path("user.email");
-        ActualName = response.path("user.name");
+        ActualSuccessMessage = response.path("success");
+        if (ActualStatusCode == 401 || ActualStatusCode == 403) {
+            ActualErrorMessage = response.path("message");
+        } else if (ActualStatusCode == 200) {
+            ActualEmail = response.path("user.email");
+            ActualName = response.path("user.name");
+        }
         return response;
     }
 }

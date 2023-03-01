@@ -14,7 +14,6 @@ public class OrderHelper {
     Urls urls = new Urls();
     Generator generator = new Generator();
     Messages messages = new Messages();
-
     StepsOrder stepsOrder = new StepsOrder();
     User user;
 
