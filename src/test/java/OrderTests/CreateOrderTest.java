@@ -1,7 +1,6 @@
 package OrderTests;
 
 import Data.Ingredients;
-import Data.User;
 import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,7 @@ public class CreateOrderTest extends OrderHelper {
 
     @Before
     public void setUp() {
-        user = new User().createRandomUserData();
+        user = generator.createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(user);
     }
@@ -23,8 +22,8 @@ public class CreateOrderTest extends OrderHelper {
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkOrderNumber(stepsOrder.ActualOrderNumber);
-        checkBurgerName(stepsOrder.ActualBurgerName);
+        checkOrderNumberNotNull();
+        checkBurgerName();
     }
 
     @Test
@@ -34,8 +33,8 @@ public class CreateOrderTest extends OrderHelper {
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkOrderNumber(stepsOrder.ActualOrderNumber);
-        checkBurgerName(stepsOrder.ActualBurgerName);
+        checkOrderNumberNotNull();
+        checkBurgerName();
     }
 
     @Test

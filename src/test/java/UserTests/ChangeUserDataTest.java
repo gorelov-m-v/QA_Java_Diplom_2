@@ -10,7 +10,7 @@ public class ChangeUserDataTest extends UserHelper {
 
     @Before
     public void setUp() {
-        firstUser = new User().createRandomUserData();
+        firstUser = generator.createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(firstUser);
     }
@@ -46,7 +46,7 @@ public class ChangeUserDataTest extends UserHelper {
 
     @Test
     public void changeUserEmailWithAuthAndSameEmailShouldReturn_403(){
-        secondUser = new User().createRandomUserData();
+        secondUser = generator.createRandomUserData();
         stepsUser2.createUser(secondUser);
         stepsUser.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), stepsUser2.ActualAccessToken);
 

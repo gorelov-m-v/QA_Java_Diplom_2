@@ -1,7 +1,6 @@
 package OrderTests;
 
 import Data.Ingredients;
-import Data.User;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +10,7 @@ public class GetOrderTest extends OrderHelper {
 
     @Before
     public void setUp() {
-        user = new User().createRandomUserData();
+        user = generator.createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(user);
         Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));

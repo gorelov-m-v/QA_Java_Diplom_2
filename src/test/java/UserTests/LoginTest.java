@@ -10,7 +10,7 @@ public class LoginTest extends UserHelper {
 
     @Before
     public void setUp() {
-        firstUser = new User().createRandomUserData();
+        firstUser = generator.createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(firstUser);
     }

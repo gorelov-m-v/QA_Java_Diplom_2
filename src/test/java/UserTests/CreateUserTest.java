@@ -15,7 +15,7 @@ public class CreateUserTest extends UserHelper {
 
     @Test
     public void creatingUserWithValidParamShouldReturn_200() {
-        User validUserData = new User().createRandomUserData();
+        User validUserData = generator.createRandomUserData();
         stepsUser.createUser(validUserData);
 
         checkStatusCode(200);
@@ -25,7 +25,7 @@ public class CreateUserTest extends UserHelper {
 
     @Test
     public void creatingUserWithSameDataShouldReturn_403() {
-        User validUserData = new User().createRandomUserData();
+        User validUserData = generator.createRandomUserData();
         stepsUser.createUser(validUserData);
         stepsUser.createUser(validUserData);
 
@@ -36,7 +36,7 @@ public class CreateUserTest extends UserHelper {
 
     @Test
     public void creatingUserWithoutNameShouldReturn_403() {
-        User userDataWithoutName = new User().createUserWithoutName();
+        User userDataWithoutName = generator.createUserWithoutName();
         stepsUser.createUser(userDataWithoutName);
 
         checkStatusCode(403);
@@ -46,7 +46,7 @@ public class CreateUserTest extends UserHelper {
 
     @Test
     public void creatingUserWithoutEmailShouldReturn_403() {
-        User userDataWithoutEmail = new User().createUserWithoutEmail();
+        User userDataWithoutEmail = generator.createUserWithoutEmail();
         stepsUser.createUser(userDataWithoutEmail);
 
         checkStatusCode(403);
@@ -56,7 +56,7 @@ public class CreateUserTest extends UserHelper {
 
     @Test
     public void creatingUserWithoutPasswordShouldReturn_403() {
-        User userDataWithoutPassword = new User().createUserWithoutPassword();
+        User userDataWithoutPassword = generator.createUserWithoutPassword();
         stepsUser.createUser(userDataWithoutPassword);
 
         checkStatusCode(403);

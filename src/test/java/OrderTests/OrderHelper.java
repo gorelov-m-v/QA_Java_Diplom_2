@@ -29,9 +29,9 @@ public class OrderHelper {
         Assert.assertEquals(expected, stepsOrder.ActualErrorMessage);
     }
 
-    public void checkBurgerName(String expected) { Assert.assertNotNull(stepsOrder.ActualBurgerName);}
+    public void checkBurgerName() { Assert.assertNotNull(stepsOrder.ActualBurgerName);}
 
-    public void checkOrderNumber(int expected) { Assert.assertNotNull(stepsOrder.ActualOrderNumber);}
+    public void checkOrderNumberNotNull() { Assert.assertNotNull(stepsOrder.ActualOrderNumber);}
 
     public void checkOrderNumber() {
         Assert.assertEquals(stepsOrder.ActualOrderNumber, stepsOrder.OrderNumber);}
