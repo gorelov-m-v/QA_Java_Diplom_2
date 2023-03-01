@@ -13,7 +13,7 @@ public class CreateOrderTest extends OrderHelper {
     }
 
     @Test
-    public void createOrder() {
+    public void createOrderWithAuthAndValidData() {
         Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
         stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
 
@@ -24,7 +24,7 @@ public class CreateOrderTest extends OrderHelper {
     }
 
     @Test
-    public void createOrder2() {
+    public void createOrderWithoutAuth() {
         Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
         stepsOrder.createOrder(ingredients, "");
 
@@ -35,7 +35,7 @@ public class CreateOrderTest extends OrderHelper {
     }
 
     @Test
-    public void createOrder3() {
+    public void createOrderWithoutData() {
         Ingredients ingredients = new Ingredients(new ArrayList<>());
         stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
 
@@ -45,7 +45,7 @@ public class CreateOrderTest extends OrderHelper {
     }
 
     @Test
-    public void createOrder4() {
+    public void createOrderWithWrongHash() {
         Ingredients ingredients = new Ingredients(generator.getRandomList(3));
         stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
 

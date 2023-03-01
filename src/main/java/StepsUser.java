@@ -1,6 +1,5 @@
 import Constants.Paths;
 import io.restassured.response.Response;
-import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class StepsUser {
@@ -12,8 +11,7 @@ public class StepsUser {
     String ActualErrorMessage;
     String ActualEmail;
     String ActualName;
-    int ActualOrderNumber;
-    int OrderNumber;
+
 
     public Response createUser(User user) {
         response = given()

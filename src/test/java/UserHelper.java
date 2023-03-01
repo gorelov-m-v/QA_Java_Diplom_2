@@ -33,5 +33,4 @@ public class UserHelper {
     public void checkEmail(String expected) { Assert.assertEquals(expected, stepsUser.ActualEmail);}
 
     public void checkName(String expected) { Assert.assertEquals(expected, stepsUser.ActualName);}
-
 }

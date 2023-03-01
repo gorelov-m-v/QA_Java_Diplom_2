@@ -15,7 +15,7 @@ public class GetOrderTest extends OrderHelper {
     }
 
     @Test
-    public void getOrder1() {
+    public void getOrderWithAuth() {
         stepsOrder.getOrder(stepsUser.ActualAccessToken);
 
         checkStatusCode(200);
@@ -24,7 +24,7 @@ public class GetOrderTest extends OrderHelper {
     }
 
     @Test
-    public void getOrder2() {
+    public void getOrderWithoutAuth() {
         stepsOrder.getOrder("");
 
         checkStatusCode(401);
