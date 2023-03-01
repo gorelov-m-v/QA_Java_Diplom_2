@@ -1,5 +1,9 @@
+package UserTests;
+
 import Constants.Messages;
 import Constants.Urls;
+import Data.User;
+import Requests.StepsUser;
 import Util.Generator;
 import org.junit.Assert;
 

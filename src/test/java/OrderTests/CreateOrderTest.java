@@ -1,3 +1,7 @@
+package OrderTests;
+
+import Data.Ingredients;
+import Data.User;
 import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.Test;

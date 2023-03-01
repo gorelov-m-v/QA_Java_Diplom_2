@@ -1,16 +1,19 @@
+package Requests;
+
 import Constants.Paths;
+import Data.Ingredients;
 import io.restassured.response.Response;
 import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class StepsOrder {
     Paths paths = new Paths();
-    boolean ActualSuccessMessage;
-    int ActualStatusCode;
-    String ActualErrorMessage;
-    int ActualOrderNumber;
-    String  ActualBurgerName;
-    int OrderNumber;
+    public boolean ActualSuccessMessage;
+    public int ActualStatusCode;
+    public String ActualErrorMessage;
+    public int ActualOrderNumber;
+    public String  ActualBurgerName;
+    public int OrderNumber;
 
     public List<String> getIngredientsList() {
         Response response = given()

@@ -1,16 +1,19 @@
+package Requests;
+
 import Constants.Paths;
+import Data.User;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class StepsUser {
     Paths paths = new Paths();
     Response response;
-    boolean ActualSuccessMessage;
-    String ActualAccessToken;
-    int ActualStatusCode;
-    String ActualErrorMessage;
-    String ActualEmail;
-    String ActualName;
+    public boolean ActualSuccessMessage;
+    public String ActualAccessToken;
+    public int ActualStatusCode;
+    public String ActualErrorMessage;
+    public String ActualEmail;
+    public String ActualName;
 
 
     public Response createUser(User user) {
