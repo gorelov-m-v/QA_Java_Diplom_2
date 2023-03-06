@@ -33,4 +33,8 @@ public class Messages {
     public String getUSER_NOT_FOUND() {
         return USER_NOT_FOUND;
     }
+    private String INVALID_SIGNATURE = "invalid signature";
+    public String getINVALID_SIGNATURE() {
+        return INVALID_SIGNATURE;
+    }
 }

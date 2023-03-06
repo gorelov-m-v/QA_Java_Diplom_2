@@ -51,6 +51,17 @@ public class DeleteUserTest extends UserHelper {
         checkErrorMessage(messages.getUSER_NOT_FOUND());
     }
 
+    @Test
+    public void deletionUserWithInvalidBearer() {
+        String invalidToken = stepsUser.ActualAccessToken + "f";
+
+        stepsUser.deleteUser(invalidToken);
+
+        checkStatusCode(403);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getINVALID_SIGNATURE());
+    }
+
     @After
     public void tearDown() {
         if(stepsUser.ActualAccessToken != null) {
