@@ -39,7 +39,11 @@ public class StepsUser {
                 .header("Authorization", accessToken)
                 .when()
                 .delete(paths.getDELETE_USER_PATH());
-        response.then().statusCode(202);
+        ActualStatusCode = response.getStatusCode();
+        ActualSuccessMessage = response.path("success");
+        if(ActualStatusCode == 401 || ActualStatusCode == 403 || ActualStatusCode == 404) {
+            ActualErrorMessage = response.path("message");
+        }
         return response;
     }
 
@@ -76,7 +80,7 @@ public class StepsUser {
                 .response();
         ActualStatusCode = response.getStatusCode();
         ActualSuccessMessage = response.path("success");
-        if (ActualStatusCode == 401 || ActualStatusCode == 403) {
+        if (ActualStatusCode == 401 || ActualStatusCode == 404 || ActualStatusCode == 403) {
             ActualErrorMessage = response.path("message");
         } else if (ActualStatusCode == 200) {
             ActualEmail = response.path("user.email");
