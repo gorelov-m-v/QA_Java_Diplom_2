@@ -41,7 +41,7 @@ public class StepsUser {
                 .delete(paths.getDELETE_USER_PATH());
         ActualStatusCode = response.getStatusCode();
         ActualSuccessMessage = response.path("success");
-        if(ActualStatusCode == 401 || ActualStatusCode == 403) {
+        if(ActualStatusCode == 401 || ActualStatusCode == 403 || ActualStatusCode == 404) {
             ActualErrorMessage = response.path("message");
         }
         return response;
