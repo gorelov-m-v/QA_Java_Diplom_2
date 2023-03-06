@@ -80,4 +80,17 @@ public class Generator {
         String randomName = faker.name().firstName();
         return new User("", randomPassword, randomName);
     }
+
+    public String getWrongBearerToken() {
+        Random random = new Random();
+        String lower = "abcdefghijklmnopqrstuvwxyz";
+        String digits = "0123456789";
+        String combination = lower + digits;
+        char[] password = new char[40];
+        for(int i = 0; i < 40; i++) {
+            password[i] = combination.charAt(random.nextInt(combination.length()));
+        }
+        String result = "Bearer " + new String(password);
+        return result;
+    }
 }

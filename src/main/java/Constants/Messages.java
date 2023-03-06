@@ -21,9 +21,16 @@ public class Messages {
     public String getUSER_EMAIL_ALREADY_EXISTS() {
         return USER_EMAIL_ALREADY_EXISTS;
     }
-
     public String INGREDIENTS_MUST_PROVIDED = "Ingredient ids must be provided";
     public String getINGREDIENTS_MUST_PROVIDED() {
         return INGREDIENTS_MUST_PROVIDED;
+    }
+    private String JWT_MALFORMED = "jwt malformed";
+    public String getJWT_MALFORMED() {
+        return JWT_MALFORMED;
+    }
+    private String USER_NOT_FOUND = "User not found";
+    public String getUSER_NOT_FOUND() {
+        return USER_NOT_FOUND;
     }
 }
