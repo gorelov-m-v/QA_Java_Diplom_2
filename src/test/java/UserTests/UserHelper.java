@@ -30,6 +30,8 @@ public class UserHelper {
         Assert.assertNotNull(stepsUser.actualAccessToken);
     }
 
+    public void checkRefreshTokenNotNull() { Assert.assertNotNull(stepsUser.actualRefreshToken);}
+
     public void checkErrorMessage(String expected) {
         Assert.assertEquals(expected, stepsUser.actualErrorMessage);
     }

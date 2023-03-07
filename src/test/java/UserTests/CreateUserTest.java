@@ -21,6 +21,9 @@ public class CreateUserTest extends UserHelper {
         checkStatusCode(200);
         checkSuccessMessage(true);
         checkAccessTokenNotNull();
+        checkRefreshTokenNotNull();
+        checkEmail(validUserData.getEmail());
+        checkName(validUserData.getName());
     }
 
     @Test
