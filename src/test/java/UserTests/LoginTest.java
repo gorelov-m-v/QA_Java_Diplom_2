@@ -21,6 +21,10 @@ public class LoginTest extends UserHelper {
 
         checkSuccessMessage(true);
         checkStatusCode(200);
+        checkAccessTokenNotNull();
+        checkRefreshTokenNotNull();
+        checkEmail(firstUser.getEmail());
+        checkName(firstUser.getName());
     }
 
     @Test
