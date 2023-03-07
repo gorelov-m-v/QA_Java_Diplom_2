@@ -8,12 +8,13 @@ import static io.restassured.RestAssured.given;
 public class StepsUser {
     Paths paths = new Paths();
     Response response;
-    public boolean ActualSuccessMessage;
-    public String ActualAccessToken;
-    public int ActualStatusCode;
-    public String ActualErrorMessage;
-    public String ActualEmail;
-    public String ActualName;
+    public boolean actualSuccessMessage;
+    public String actualAccessToken;
+    public String actualRefreshToken;
+    public int actualStatusCode;
+    public String actualErrorMessage;
+    public String actualEmail;
+    public String actualName;
 
 
     public Response createUser(User user) {
@@ -26,10 +27,16 @@ public class StepsUser {
                 .then()
                 .extract()
                 .response();
-        ActualSuccessMessage = response.path("success");
-        ActualAccessToken =  response.path("accessToken");
-        ActualStatusCode = response.getStatusCode();
-        ActualErrorMessage = response.path("message");
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if (actualStatusCode == 200) {
+            actualRefreshToken = response.path("refreshToken");
+            actualAccessToken =  response.path("accessToken");
+            actualEmail = response.path("user.email");
+            actualName = response.path("user.name");
+        } else if(actualStatusCode == 403) {
+            actualErrorMessage = response.path("message");
+        }
         return response;
     }
 
@@ -39,10 +46,10 @@ public class StepsUser {
                 .header("Authorization", accessToken)
                 .when()
                 .delete(paths.getDELETE_USER_PATH());
-        ActualStatusCode = response.getStatusCode();
-        ActualSuccessMessage = response.path("success");
-        if(ActualStatusCode == 401 || ActualStatusCode == 403 || ActualStatusCode == 404) {
-            ActualErrorMessage = response.path("message");
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if(actualStatusCode == 401 || actualStatusCode == 403 || actualStatusCode == 404) {
+            actualErrorMessage = response.path("message");
         }
         return response;
     }
@@ -57,12 +64,12 @@ public class StepsUser {
                 .then()
                 .extract()
                 .response();
-        ActualStatusCode = response.getStatusCode();
-        ActualSuccessMessage = response.path("success");
-        if (ActualStatusCode == 401) {
-            ActualErrorMessage = response.path("message");
-        } else if (ActualStatusCode == 200) {
-            ActualAccessToken = response.path("accessToken");
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if (actualStatusCode == 401) {
+            actualErrorMessage = response.path("message");
+        } else if (actualStatusCode == 200) {
+            actualAccessToken = response.path("accessToken");
         }
         return response;
     }
@@ -78,13 +85,13 @@ public class StepsUser {
                 .then()
                 .extract()
                 .response();
-        ActualStatusCode = response.getStatusCode();
-        ActualSuccessMessage = response.path("success");
-        if (ActualStatusCode == 401 || ActualStatusCode == 404 || ActualStatusCode == 403) {
-            ActualErrorMessage = response.path("message");
-        } else if (ActualStatusCode == 200) {
-            ActualEmail = response.path("user.email");
-            ActualName = response.path("user.name");
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if (actualStatusCode == 401 || actualStatusCode == 404 || actualStatusCode == 403) {
+            actualErrorMessage = response.path("message");
+        } else if (actualStatusCode == 200) {
+            actualEmail = response.path("user.email");
+            actualName = response.path("user.name");
         }
         return response;
     }

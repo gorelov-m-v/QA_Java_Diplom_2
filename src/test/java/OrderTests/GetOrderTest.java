@@ -14,12 +14,12 @@ public class GetOrderTest extends OrderHelper {
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(user);
         Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
-        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
     }
 
     @Test
     public void getOrderWithAuth() {
-        stepsOrder.getOrder(stepsUser.ActualAccessToken);
+        stepsOrder.getOrder(stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -37,8 +37,8 @@ public class GetOrderTest extends OrderHelper {
 
     @After
     public void tearDown() {
-        if(stepsUser.ActualAccessToken != null) {
-            stepsUser.deleteUser(stepsUser.ActualAccessToken);
+        if(stepsUser.actualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.actualAccessToken);
         }
     }
 }
