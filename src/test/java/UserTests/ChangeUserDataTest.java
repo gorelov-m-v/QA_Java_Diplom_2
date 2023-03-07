@@ -18,20 +18,29 @@ public class ChangeUserDataTest extends UserHelper {
     @Test
     public void changeUserEmailWithAuthShouldReturn_200(){
         newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
+
         stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
+        checkAccessTokenNotNull();
+        checkRefreshTokenNotNull();
         checkEmail(newData.getEmail());
+        checkName(newData.getName());
     }
 
     @Test
     public void changeUserPasswordWithAuthShouldReturn_200(){
         newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
+
         stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
+        checkAccessTokenNotNull();
+        checkRefreshTokenNotNull();
+        checkEmail(newData.getEmail());
+        checkName(newData.getName());
     }
 
     @Test
@@ -41,6 +50,9 @@ public class ChangeUserDataTest extends UserHelper {
 
         checkStatusCode(200);
         checkSuccessMessage(true);
+        checkAccessTokenNotNull();
+        checkRefreshTokenNotNull();
+        checkEmail(newData.getEmail());
         checkName(newData.getName());
     }
 
