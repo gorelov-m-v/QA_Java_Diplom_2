@@ -18,7 +18,7 @@ public class ChangeUserDataTest extends UserHelper {
     @Test
     public void changeUserEmailWithAuthShouldReturn_200(){
         newData = new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), firstUser.getName());
-        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -28,7 +28,7 @@ public class ChangeUserDataTest extends UserHelper {
     @Test
     public void changeUserPasswordWithAuthShouldReturn_200(){
         newData = new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), firstUser.getName());
-        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -37,7 +37,7 @@ public class ChangeUserDataTest extends UserHelper {
     @Test
     public void changeUserNameWithAuthShouldReturn_200(){
         newData = new User(firstUser.getEmail(), firstUser.getPassword(), generator.getRANDOM_NAME());
-        stepsUser.changeUserData(newData, stepsUser.ActualAccessToken);
+        stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -48,7 +48,7 @@ public class ChangeUserDataTest extends UserHelper {
     public void changeUserEmailWithAuthAndSameEmailShouldReturn_403(){
         secondUser = generator.createRandomUserData();
         stepsUser2.createUser(secondUser);
-        stepsUser.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), stepsUser2.ActualAccessToken);
+        stepsUser.changeUserData(new User(firstUser.getEmail(), secondUser.getPassword(), secondUser.getName()), stepsUser2.actualAccessToken);
 
         checkStatusCode(403);
         checkSuccessMessage(false);
@@ -87,10 +87,10 @@ public class ChangeUserDataTest extends UserHelper {
 
     @After
     public void tearDown() {
-        if(stepsUser.ActualAccessToken != null) {
-            stepsUser.deleteUser(stepsUser.ActualAccessToken);
-            if(stepsUser2.ActualAccessToken != null) {
-                stepsUser.deleteUser(stepsUser2.ActualAccessToken );
+        if(stepsUser.actualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.actualAccessToken);
+            if(stepsUser2.actualAccessToken != null) {
+                stepsUser.deleteUser(stepsUser2.actualAccessToken);
             }
         }
     }

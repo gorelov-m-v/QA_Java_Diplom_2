@@ -2,6 +2,7 @@ package OrderTests;
 
 import Data.Ingredients;
 import io.restassured.RestAssured;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class CreateOrderTest extends OrderHelper {
     @Test
     public void createOrderWithAuthAndValidData() {
         Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
-        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
@@ -40,7 +41,7 @@ public class CreateOrderTest extends OrderHelper {
     @Test
     public void createOrderWithoutData() {
         Ingredients ingredients = new Ingredients(new ArrayList<>());
-        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 
         checkStatusCode(400);
         checkSuccessMessage(false);
@@ -50,9 +51,16 @@ public class CreateOrderTest extends OrderHelper {
     @Test
     public void createOrderWithWrongHash() {
         Ingredients ingredients = new Ingredients(generator.getRandomList(3));
-        stepsOrder.createOrder(ingredients, stepsUser.ActualAccessToken);
+        stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 
         checkStatusCode(500);
+    }
+
+    @After
+    public void tearDown() {
+        if(stepsUser.actualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.actualAccessToken);
+        }
     }
 }
 

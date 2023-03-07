@@ -19,22 +19,22 @@ public class UserHelper {
     User newData;
 
     public void checkStatusCode(int expected) {
-        Assert.assertEquals(expected, stepsUser.ActualStatusCode);
+        Assert.assertEquals(expected, stepsUser.actualStatusCode);
     }
 
     public void checkSuccessMessage(boolean expected) {
-        Assert.assertEquals(expected, stepsUser.ActualSuccessMessage);
+        Assert.assertEquals(expected, stepsUser.actualSuccessMessage);
     }
 
     public void checkAccessTokenNotNull() {
-        Assert.assertNotNull(stepsUser.ActualAccessToken);
+        Assert.assertNotNull(stepsUser.actualAccessToken);
     }
 
     public void checkErrorMessage(String expected) {
-        Assert.assertEquals(expected, stepsUser.ActualErrorMessage);
+        Assert.assertEquals(expected, stepsUser.actualErrorMessage);
     }
 
-    public void checkEmail(String expected) { Assert.assertEquals(expected, stepsUser.ActualEmail);}
+    public void checkEmail(String expected) { Assert.assertEquals(expected, stepsUser.actualEmail);}
 
-    public void checkName(String expected) { Assert.assertEquals(expected, stepsUser.ActualName);}
+    public void checkName(String expected) { Assert.assertEquals(expected, stepsUser.actualName);}
 }

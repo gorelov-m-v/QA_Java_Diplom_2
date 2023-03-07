@@ -8,12 +8,12 @@ import static io.restassured.RestAssured.given;
 
 public class StepsOrder {
     Paths paths = new Paths();
-    public boolean ActualSuccessMessage;
-    public int ActualStatusCode;
-    public String ActualErrorMessage;
-    public int ActualOrderNumber;
-    public String  ActualBurgerName;
-    public int OrderNumber;
+    public boolean actualSuccessMessage;
+    public int actualStatusCode;
+    public String actualErrorMessage;
+    public int actualOrderNumber;
+    public String actualBurgerName;
+    public int orderNumber;
 
     public List<String> getIngredientsList() {
         Response response = given()
@@ -37,16 +37,16 @@ public class StepsOrder {
                 .then()
                 .extract()
                 .response();
-        ActualStatusCode = response.getStatusCode();
-        if(ActualStatusCode != 500) {
-            ActualSuccessMessage = response.path("success");
-            if (ActualStatusCode == 400) {
-                ActualErrorMessage = response.path("message");
+        actualStatusCode = response.getStatusCode();
+        if(actualStatusCode != 500) {
+            actualSuccessMessage = response.path("success");
+            if (actualStatusCode == 400) {
+                actualErrorMessage = response.path("message");
             }
-            else if (ActualStatusCode == 200) {
-                ActualOrderNumber = response.path("order.number");
-                ActualBurgerName = response.path("name");
-                OrderNumber = response.path("order.number");
+            else if (actualStatusCode == 200) {
+                actualOrderNumber = response.path("order.number");
+                actualBurgerName = response.path("name");
+                orderNumber = response.path("order.number");
             }
         }
         return response;
@@ -61,13 +61,13 @@ public class StepsOrder {
                 .then()
                 .extract()
                 .response();
-        ActualStatusCode = response.getStatusCode();
-        ActualSuccessMessage = response.path("success");
-        if(ActualStatusCode == 401) {
-            ActualErrorMessage = response.path("message");
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if(actualStatusCode == 401) {
+            actualErrorMessage = response.path("message");
         }
-        else if (ActualStatusCode == 200) {
-            OrderNumber = response.path("orders[0].number");
+        else if (actualStatusCode == 200) {
+            orderNumber = response.path("orders[0].number");
         }
     }
 }

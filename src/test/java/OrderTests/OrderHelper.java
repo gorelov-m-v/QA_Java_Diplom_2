@@ -18,21 +18,21 @@ public class OrderHelper {
     User user;
 
     public void checkStatusCode(int expected) {
-        Assert.assertEquals(expected, stepsOrder.ActualStatusCode);
+        Assert.assertEquals(expected, stepsOrder.actualStatusCode);
     }
 
     public void checkSuccessMessage(boolean expected) {
-        Assert.assertEquals(expected, stepsOrder.ActualSuccessMessage);
+        Assert.assertEquals(expected, stepsOrder.actualSuccessMessage);
     }
 
     public void checkErrorMessage(String expected) {
-        Assert.assertEquals(expected, stepsOrder.ActualErrorMessage);
+        Assert.assertEquals(expected, stepsOrder.actualErrorMessage);
     }
 
-    public void checkBurgerName() { Assert.assertNotNull(stepsOrder.ActualBurgerName);}
+    public void checkBurgerName() { Assert.assertNotNull(stepsOrder.actualBurgerName);}
 
-    public void checkOrderNumberNotNull() { Assert.assertNotNull(stepsOrder.ActualOrderNumber);}
+    public void checkOrderNumberNotNull() { Assert.assertNotNull(stepsOrder.actualOrderNumber);}
 
     public void checkOrderNumber() {
-        Assert.assertEquals(stepsOrder.ActualOrderNumber, stepsOrder.OrderNumber);}
+        Assert.assertEquals(stepsOrder.actualOrderNumber, stepsOrder.orderNumber);}
 }

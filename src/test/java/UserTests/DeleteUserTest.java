@@ -2,7 +2,6 @@ package UserTests;
 
 import io.restassured.RestAssured;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class DeleteUserTest extends UserHelper {
 
     @Test
     public void deletionUserWithAuth() {
-        stepsUser.deleteUser(stepsUser.ActualAccessToken);
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
 
         checkStatusCode(202);
         checkSuccessMessage(true);
@@ -42,9 +41,9 @@ public class DeleteUserTest extends UserHelper {
     }
     @Test
     public void deletionUserWithUsedBearer() {
-        stepsUser.deleteUser(stepsUser.ActualAccessToken);
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
 
-        stepsUser.deleteUser(stepsUser.ActualAccessToken);
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
 
         checkStatusCode(404);
         checkSuccessMessage(false);
@@ -53,7 +52,7 @@ public class DeleteUserTest extends UserHelper {
 
     @Test
     public void deletionUserWithInvalidBearer() {
-        String invalidToken = stepsUser.ActualAccessToken + "f";
+        String invalidToken = stepsUser.actualAccessToken + "f";
 
         stepsUser.deleteUser(invalidToken);
 
@@ -64,10 +63,10 @@ public class DeleteUserTest extends UserHelper {
 
     @After
     public void tearDown() {
-        if(stepsUser.ActualAccessToken != null) {
-            stepsUser.deleteUser(stepsUser.ActualAccessToken);
-            if(stepsUser2.ActualAccessToken != null) {
-                stepsUser.deleteUser(stepsUser2.ActualAccessToken );
+        if(stepsUser.actualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.actualAccessToken);
+            if(stepsUser2.actualAccessToken != null) {
+                stepsUser.deleteUser(stepsUser2.actualAccessToken);
             }
         }
     }

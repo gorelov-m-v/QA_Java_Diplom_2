@@ -66,8 +66,8 @@ public class CreateUserTest extends UserHelper {
 
     @After
     public void tearDown() {
-        if(stepsUser.ActualAccessToken != null) {
-            stepsUser.deleteUser(stepsUser.ActualAccessToken);
+        if(stepsUser.actualAccessToken != null) {
+            stepsUser.deleteUser(stepsUser.actualAccessToken);
         }
     }
 }
