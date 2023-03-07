@@ -22,7 +22,7 @@ public class ChangeUserDataTest extends UserHelper {
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkEmail(generator.getRANDOM_EMAIL());
+        checkEmail(newData.getEmail());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ChangeUserDataTest extends UserHelper {
 
         checkStatusCode(200);
         checkSuccessMessage(true);
-        checkName(generator.getRANDOM_NAME());
+        checkName(newData.getName());
     }
 
     @Test
