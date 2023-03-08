@@ -1,4 +1,4 @@
-package UserTests.OrderTests;
+package OrderTests;
 
 import Data.Ingredients;
 import io.restassured.RestAssured;

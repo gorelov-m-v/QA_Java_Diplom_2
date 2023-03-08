@@ -45,6 +45,15 @@ public class LoginTest extends UserHelper {
         checkErrorMessage(messages.getEMAIL_PASSWORD_INCORRECT());
     }
 
+    @Test
+    public void loginWithoutBody() {
+        stepsUser.loginUser();
+
+        checkStatusCode(401);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getEMAIL_PASSWORD_INCORRECT());
+    }
+
     @After
     public void tearDown() {
         if(stepsUser.actualAccessToken != null) {
