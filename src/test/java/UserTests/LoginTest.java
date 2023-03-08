@@ -29,7 +29,7 @@ public class LoginTest extends UserHelper {
 
     @Test
     public void loginWithWrongLoginShouldReturn_401() {
-        stepsUser.loginUser(new User("wrongEmail123", firstUser.getPassword(), ""));
+        stepsUser.loginUser(new User(generator.getRANDOM_EMAIL(), firstUser.getPassword(), null));
 
         checkStatusCode(401);
         checkSuccessMessage(false);
@@ -38,7 +38,7 @@ public class LoginTest extends UserHelper {
 
     @Test
     public void loginWithWrongPasswordShouldReturn_401() {
-        stepsUser.loginUser(new User(firstUser.getEmail(), "wrongPassword123", ""));
+        stepsUser.loginUser(new User(firstUser.getEmail(), generator.getRANDOM_PASSWORD(), ""));
 
         checkStatusCode(401);
         checkSuccessMessage(false);

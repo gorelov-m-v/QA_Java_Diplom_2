@@ -8,19 +8,18 @@ import java.util.Random;
 import static Util.GeneratorConfigs.*;
 
 public class Generator {
-    String lower = "abcdefghijklmnopqrstuvwxyz";
-    String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String digits = "0123456789";
+    private final String LOWER = "abcdefghijklmnopqrstuvwxyz";
+    private final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private final String DIGITS = "0123456789";
     Random random = new Random();
 
     public String createRandomString(int length) {
-        String combination = lower + digits + upper;
+        String combination = LOWER + DIGITS + UPPER;
         char[] password = new char[length];
         for(int i = 0; i < length; i++) {
             password[i] = combination.charAt(random.nextInt(combination.length()));
         }
-        String result = new String(password);
-        return result;
+        return new String(password);
     }
 
     public String getRANDOM_EMAIL() {
@@ -31,13 +30,11 @@ public class Generator {
     }
     public String getRANDOM_PASSWORD() {
         int passwordLength = random.nextInt(passwordMaxLength - passwordMinLength) + passwordMinLength;
-        String randomPassword = createRandomString(passwordLength);
-        return randomPassword;
+        return createRandomString(passwordLength);
     }
     public String getRANDOM_NAME() {
         int nameLength = random.nextInt(nameMaxLength - nameMinLength) + nameMinLength;
-        String randomName = createRandomString(nameLength);
-        return randomName;
+        return createRandomString(nameLength);
     }
 
     public List<String> getRandomOrderList(int quantity) {
