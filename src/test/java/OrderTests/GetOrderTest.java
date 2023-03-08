@@ -35,6 +35,17 @@ public class GetOrderTest extends OrderHelper {
         checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
     }
 
+    @Test
+    public void getOrderDeletedUser() {
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
+
+        stepsOrder.getOrder(stepsUser.actualAccessToken);
+
+        checkStatusCode(200);
+        checkSuccessMessage(true);
+        checkOrderNumber();
+    }
+
     @After
     public void tearDown() {
         if(stepsUser.actualAccessToken != null) {

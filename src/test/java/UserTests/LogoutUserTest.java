@@ -64,6 +64,18 @@ public class LogoutUserTest extends UserHelper{
         checkErrorMessage(messages.getTOKEN_REQUIRED());
     }
 
+    @Test
+    public void logonDeletedUser() {
+        token = new Token(stepsUser.actualRefreshToken);
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
+
+        stepsUser.logoutUser(token);
+
+        checkStatusCode(404);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getTOKEN_REQUIRED());
+    }
+
     @After
     public void tearDown() {
         if(stepsUser.actualAccessToken != null) {

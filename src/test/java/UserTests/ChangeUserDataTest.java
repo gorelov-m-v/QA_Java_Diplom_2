@@ -97,6 +97,19 @@ public class ChangeUserDataTest extends UserHelper {
         checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
     }
 
+    @Test
+    public void changeDeletedUserData() {
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
+        newData = generator.createRandomUserData();
+
+        stepsUser.changeUserData(newData, stepsUser.actualAccessToken);
+
+        checkStatusCode(403);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getUSER_NOT_FOUND());
+
+    }
+
     @After
     public void tearDown() {
         if(stepsUser.actualAccessToken != null) {
