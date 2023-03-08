@@ -13,7 +13,8 @@ public class GetOrderTest extends OrderHelper {
         user = generator.createRandomUserData();
         RestAssured.baseURI = urls.getSTELLAR_BURGERS_PROD();
         stepsUser.createUser(user);
-        Ingredients ingredients = new Ingredients(generator.getOrderList(stepsOrder.getIngredientsList()));
+        order = generator.getOrderList(stepsOrder.getIngredientsList());
+        ingredients = new Ingredients(order);
         stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
     }
 
@@ -24,6 +25,7 @@ public class GetOrderTest extends OrderHelper {
         checkStatusCode(200);
         checkSuccessMessage(true);
         checkOrderNumber();
+        checkOrderList();
     }
 
     @Test

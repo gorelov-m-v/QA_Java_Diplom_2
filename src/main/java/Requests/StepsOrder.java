@@ -11,9 +11,10 @@ public class StepsOrder {
     public boolean actualSuccessMessage;
     public int actualStatusCode;
     public String actualErrorMessage;
-    public int actualOrderNumber;
+    public int createdOrderNumber;
     public String actualBurgerName;
-    public int orderNumber;
+    public int receivedOrderNumber;
+    public List<String> receivedOrderList;
 
     public List<String> getIngredientsList() {
         Response response = given()
@@ -44,15 +45,14 @@ public class StepsOrder {
                 actualErrorMessage = response.path("message");
             }
             else if (actualStatusCode == 200) {
-                actualOrderNumber = response.path("order.number");
                 actualBurgerName = response.path("name");
-                orderNumber = response.path("order.number");
+                createdOrderNumber = response.path("order.number");
             }
         }
         return response;
     }
 
-    public void getOrder(String accessToken) {
+    public Response getOrder(String accessToken) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("Authorization", accessToken)
@@ -67,7 +67,9 @@ public class StepsOrder {
             actualErrorMessage = response.path("message");
         }
         else if (actualStatusCode == 200) {
-            orderNumber = response.path("orders[0].number");
+            receivedOrderNumber = response.path("orders[0].number");
+            receivedOrderList = response.path("orders[0].ingredients");
         }
+        return response;
     }
 }
