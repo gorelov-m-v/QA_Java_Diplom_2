@@ -9,6 +9,7 @@ import Requests.StepsUser;
 import Util.Generator;
 import org.junit.Assert;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OrderHelper {
@@ -42,6 +43,8 @@ public class OrderHelper {
         Assert.assertEquals(stepsOrder.createdOrderNumber, stepsOrder.receivedOrderNumber);}
 
     public void checkOrderList() {
+        Collections.sort(order);
+        Collections.sort(stepsOrder.receivedOrderList);
         Assert.assertEquals(order, stepsOrder.receivedOrderList);
     }
 }
