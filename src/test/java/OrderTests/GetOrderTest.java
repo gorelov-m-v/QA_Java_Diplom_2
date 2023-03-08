@@ -1,4 +1,4 @@
-package UserTests.OrderTests;
+package OrderTests;
 
 import Data.Ingredients;
 import io.restassured.RestAssured;
@@ -33,6 +33,17 @@ public class GetOrderTest extends OrderHelper {
         checkStatusCode(401);
         checkSuccessMessage(false);
         checkErrorMessage(messages.getYOU_SHOULD_BE_AUTHORISED());
+    }
+
+    @Test
+    public void getOrderDeletedUser() {
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
+
+        stepsOrder.getOrder(stepsUser.actualAccessToken);
+
+        checkStatusCode(200);
+        checkSuccessMessage(true);
+        checkOrderNumber();
     }
 
     @After

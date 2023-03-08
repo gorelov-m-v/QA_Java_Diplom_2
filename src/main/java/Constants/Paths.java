@@ -21,6 +21,10 @@ public class Paths {
     public String getCHANGE_USER_DATA_PATH() {
         return CHANGE_USER_DATA_PATH;
     }
+    public String GET_USER_DATA_PATH = "/api/auth/user";
+    public String getGET_USER_DATA_PATH() {
+        return GET_USER_DATA_PATH;
+    }
     private final String GET_INGREDIENTS_PATH = "/api/ingredients";
     public String getGET_INGREDIENTS_PATH() {
         return GET_INGREDIENTS_PATH;

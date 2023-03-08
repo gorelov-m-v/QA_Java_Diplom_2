@@ -85,6 +85,10 @@ public class Generator {
         return result;
     }
 
+    public String getInvalidBearerToken(String actualAccessToken) {
+        return actualAccessToken + "fake";
+    }
+
     public String getWrongRefreshToken() {
         String combination = lower + digits;
         char[] password = new char[40];

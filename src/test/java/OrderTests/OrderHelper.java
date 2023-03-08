@@ -1,4 +1,4 @@
-package UserTests.OrderTests;
+package OrderTests;
 
 import Constants.Messages;
 import Constants.Urls;

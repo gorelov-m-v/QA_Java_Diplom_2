@@ -1,4 +1,4 @@
-package UserTests.OrderTests;
+package OrderTests;
 
 import Data.Ingredients;
 import io.restassured.RestAssured;
@@ -51,6 +51,16 @@ public class CreateOrderTest extends OrderHelper {
     @Test
     public void createOrderWithWrongHash() {
         Ingredients ingredients = new Ingredients(generator.getRandomList(3));
+        stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
+
+        checkStatusCode(500);
+    }
+
+    @Test
+    public void createOrderByDeletedUser() {
+        stepsUser.deleteUser(stepsUser.actualAccessToken);
+        Ingredients ingredients = new Ingredients(generator.getRandomList(3));
+
         stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 
         checkStatusCode(500);

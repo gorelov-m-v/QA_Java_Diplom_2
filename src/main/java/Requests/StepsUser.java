@@ -63,6 +63,26 @@ public class StepsUser {
         return response;
     }
 
+    public Response getUserData(String accessToken) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", accessToken)
+                .when()
+                .get(paths.getCHANGE_USER_DATA_PATH())
+                .then()
+                .extract()
+                .response();
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if(actualStatusCode == 403 || actualStatusCode == 401 || actualStatusCode == 404) {
+            actualErrorMessage = response.path("message");
+        } else if(actualStatusCode == 200) {
+            actualEmail = response.path("user.email");
+            actualName = response.path("user.name");
+        }
+        return response;
+    }
+
     public Response deleteUser(String actualAccessToken) {
         Response response = given()
                 .header("Content-type", "application/json")
@@ -94,6 +114,20 @@ public class StepsUser {
         } else if (actualStatusCode == 200) {
             actualAccessToken = response.path("accessToken");
         }
+        return response;
+    }
+
+    public Response loginUser() {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .when()
+                .post(paths.getLOGIN_USER_PATH())
+                .then()
+                .extract()
+                .response();
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        actualErrorMessage = response.path("message");
         return response;
     }
 
