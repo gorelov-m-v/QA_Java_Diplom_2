@@ -1,6 +1,7 @@
 package Requests;
 
 import Constants.Paths;
+import Data.Token;
 import Data.User;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
@@ -40,10 +41,32 @@ public class StepsUser {
         return response;
     }
 
-    public Response deleteUser(String accessToken) {
+    public Response changeUserData(User userWithNewData, String accessToken) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("Authorization", accessToken)
+                .and()
+                .body(userWithNewData)
+                .when()
+                .patch(paths.getCHANGE_USER_DATA_PATH())
+                .then()
+                .extract()
+                .response();
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        if (actualStatusCode == 401 || actualStatusCode == 404 || actualStatusCode == 403) {
+            actualErrorMessage = response.path("message");
+        } else if (actualStatusCode == 200) {
+            actualEmail = response.path("user.email");
+            actualName = response.path("user.name");
+        }
+        return response;
+    }
+
+    public Response deleteUser(String actualAccessToken) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", actualAccessToken)
                 .when()
                 .delete(paths.getDELETE_USER_PATH());
         actualStatusCode = response.getStatusCode();
@@ -74,25 +97,33 @@ public class StepsUser {
         return response;
     }
 
-    public Response changeUserData(User userWithNewData, String accessToken) {
+    public Response logoutUser(Token token) {
         Response response = given()
                 .header("Content-type", "application/json")
-                .header("Authorization", accessToken)
                 .and()
-                .body(userWithNewData)
+                .body(token)
                 .when()
-                .patch(paths.getCHANGE_USER_DATA_PATH())
+                .post(paths.getLOGOUT_USER_PATH())
                 .then()
                 .extract()
                 .response();
         actualStatusCode = response.getStatusCode();
         actualSuccessMessage = response.path("success");
-        if (actualStatusCode == 401 || actualStatusCode == 404 || actualStatusCode == 403) {
-            actualErrorMessage = response.path("message");
-        } else if (actualStatusCode == 200) {
-            actualEmail = response.path("user.email");
-            actualName = response.path("user.name");
-        }
+        actualErrorMessage = response.path("message");
+        return response;
+    }
+
+    public Response logoutUser() {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .when()
+                .post(paths.getLOGOUT_USER_PATH())
+                .then()
+                .extract()
+                .response();
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        actualErrorMessage = response.path("message");
         return response;
     }
 }

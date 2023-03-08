@@ -84,4 +84,14 @@ public class Generator {
         String result = "Bearer " + new String(password);
         return result;
     }
+
+    public String getWrongRefreshToken() {
+        String combination = lower + digits;
+        char[] password = new char[40];
+        for(int i = 0; i < 40; i++) {
+            password[i] = combination.charAt(random.nextInt(combination.length()));
+        }
+        String result = new String(password);
+        return result;
+    }
 }

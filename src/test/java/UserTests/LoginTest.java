@@ -19,8 +19,8 @@ public class LoginTest extends UserHelper {
     public void loginWithValidParamsShouldReturn_200() {
         stepsUser.loginUser(firstUser);
 
-        checkSuccessMessage(true);
         checkStatusCode(200);
+        checkSuccessMessage(true);
         checkAccessTokenNotNull();
         checkRefreshTokenNotNull();
         checkEmail(firstUser.getEmail());

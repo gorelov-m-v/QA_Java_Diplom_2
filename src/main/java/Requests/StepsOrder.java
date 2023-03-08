@@ -19,7 +19,7 @@ public class StepsOrder {
         Response response = given()
                 .header("Content-type", "application/json")
                 .when()
-                .get(paths.getGET_INGREDIENTS())
+                .get(paths.getGET_INGREDIENTS_PATH())
                 .then()
                 .extract()
                 .response();
@@ -33,7 +33,7 @@ public class StepsOrder {
                 .header("Authorization", accessToken)
                 .body(ingredients)
                 .when()
-                .post(paths.getCREATE_ORDER())
+                .post(paths.getCREATE_ORDER_PATH())
                 .then()
                 .extract()
                 .response();
@@ -57,7 +57,7 @@ public class StepsOrder {
                 .header("Content-type", "application/json")
                 .header("Authorization", accessToken)
                 .when()
-                .get(paths.getGET_ORDER())
+                .get(paths.getGET_ORDER_PATH())
                 .then()
                 .extract()
                 .response();
