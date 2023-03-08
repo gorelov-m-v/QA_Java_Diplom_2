@@ -2,6 +2,7 @@ package UserTests;
 
 import Constants.Messages;
 import Constants.Urls;
+import Data.Token;
 import Data.User;
 import Requests.StepsUser;
 import Util.Generator;
@@ -17,6 +18,7 @@ public class UserHelper {
     User firstUser;
     User secondUser;
     User newData;
+    Token token;
 
     public void checkStatusCode(int expected) {
         Assert.assertEquals(expected, stepsUser.actualStatusCode);
