@@ -50,7 +50,7 @@ public class CreateOrderTest extends OrderHelper {
 
     @Test
     public void createOrderWithWrongHash() {
-        Ingredients ingredients = new Ingredients(generator.getRandomList(3));
+        Ingredients ingredients = new Ingredients(generator.getRandomOrderList(3));
         stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 
         checkStatusCode(500);
@@ -59,7 +59,7 @@ public class CreateOrderTest extends OrderHelper {
     @Test
     public void createOrderByDeletedUser() {
         stepsUser.deleteUser(stepsUser.actualAccessToken);
-        Ingredients ingredients = new Ingredients(generator.getRandomList(3));
+        Ingredients ingredients = new Ingredients(generator.getRandomOrderList(3));
 
         stepsOrder.createOrder(ingredients, stepsUser.actualAccessToken);
 

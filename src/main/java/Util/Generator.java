@@ -1,29 +1,20 @@
 package Util;
 
 import Data.User;
-import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static Util.GeneratorConfigs.*;
+
 public class Generator {
     String lower = "abcdefghijklmnopqrstuvwxyz";
+    String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     String digits = "0123456789";
-    Faker faker = new Faker();
     Random random = new Random();
 
-    public String getRANDOM_EMAIL() {
-        return faker.number().digits(4) + (faker.name().lastName() + "@testmail.ru").toLowerCase();
-    }
-    public String getRANDOM_PASSWORD() {
-        return faker.number().digits(9);
-    }
-    public String getRANDOM_NAME() {
-        return faker.name().username();
-    }
-
-    public String getRandomString(int length) {
-        String combination = lower + digits;
+    public String createRandomString(int length) {
+        String combination = lower + digits + upper;
         char[] password = new char[length];
         for(int i = 0; i < length; i++) {
             password[i] = combination.charAt(random.nextInt(combination.length()));
@@ -32,10 +23,27 @@ public class Generator {
         return result;
     }
 
-    public List<String> getRandomList(int quantity) {
+    public String getRANDOM_EMAIL() {
+        String domain = "@testmail.ru";
+        int emailLength = random.nextInt(emailMaxLength - domain.length()) + domain.length();
+        String randomEmail = createRandomString(emailLength) + domain;
+        return randomEmail.toLowerCase();
+    }
+    public String getRANDOM_PASSWORD() {
+        int passwordLength = random.nextInt(passwordMaxLength - passwordMinLength) + passwordMinLength;
+        String randomPassword = createRandomString(passwordLength);
+        return randomPassword;
+    }
+    public String getRANDOM_NAME() {
+        int nameLength = random.nextInt(nameMaxLength - nameMinLength) + nameMinLength;
+        String randomName = createRandomString(nameLength);
+        return randomName;
+    }
+
+    public List<String> getRandomOrderList(int quantity) {
         List<String> result = new ArrayList<>();
         for(int i = 0; i < quantity; i++) {
-            result.add(getRandomString(24));
+            result.add(createRandomString(24));
         }
         return result;
     }
@@ -51,38 +59,23 @@ public class Generator {
     }
 
     public User createUserWithoutPassword() {
-        String randomEmail = (faker.name().lastName() + faker.number().digits(4) + "@testmail.ru").toLowerCase();
-        String randomName = faker.name().firstName();
-        return new User(randomEmail, "", randomName);
+        return new User(getRANDOM_EMAIL(), "", getRANDOM_NAME());
     }
 
     public User createRandomUserData() {
-        String randomEmail = (faker.name().lastName() + faker.number().digits(4) + "@testmail.ru").toLowerCase();
-        String randomPassword = faker.number().digits(8);
-        String randomName = faker.name().firstName();
-        return new User(randomEmail, randomPassword, randomName);
+        return new User(getRANDOM_EMAIL(), getRANDOM_PASSWORD(), getRANDOM_NAME());
     }
 
     public User createUserWithoutName() {
-        String randomEmail = (faker.name().lastName() + faker.number().digits(4) + "@testmail.ru").toLowerCase();
-        String randomPassword = faker.number().digits(8);
-        return new User(randomEmail, randomPassword, "");
+        return new User(getRANDOM_EMAIL(), getRANDOM_PASSWORD(), "");
     }
 
     public User createUserWithoutEmail() {
-        String randomPassword = faker.number().digits(8);
-        String randomName = faker.name().firstName();
-        return new User("", randomPassword, randomName);
+        return new User("", getRANDOM_PASSWORD(), getRANDOM_NAME());
     }
 
     public String getWrongBearerToken() {
-        String combination = lower + digits;
-        char[] password = new char[40];
-        for(int i = 0; i < 40; i++) {
-            password[i] = combination.charAt(random.nextInt(combination.length()));
-        }
-        String result = "Bearer " + new String(password);
-        return result;
+        return "Bearer " + createRandomString(80);
     }
 
     public String getInvalidBearerToken(String actualAccessToken) {
@@ -90,12 +83,6 @@ public class Generator {
     }
 
     public String getWrongRefreshToken() {
-        String combination = lower + digits;
-        char[] password = new char[40];
-        for(int i = 0; i < 40; i++) {
-            password[i] = combination.charAt(random.nextInt(combination.length()));
-        }
-        String result = new String(password);
-        return result;
+        return createRandomString(40);
     }
 }
