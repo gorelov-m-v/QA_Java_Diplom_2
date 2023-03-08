@@ -37,4 +37,8 @@ public class Messages {
     public String getINVALID_SIGNATURE() {
         return INVALID_SIGNATURE;
     }
+    private final String TOKEN_REQUIRED = "Token required";
+    public String getTOKEN_REQUIRED() {
+        return TOKEN_REQUIRED;
+    }
 }

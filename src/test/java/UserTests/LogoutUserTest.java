@@ -17,12 +17,51 @@ public class LogoutUserTest extends UserHelper{
     }
 
     @Test
-    public void logoutSmokeTest() {
+    public void logoutWithValidToken() {
         token = new Token(stepsUser.actualRefreshToken);
         stepsUser.logoutUser(token);
 
         checkStatusCode(200);
         checkSuccessMessage(true);
+    }
+
+    @Test
+    public void logoutWithInvalidToken() {
+        token = new Token(generator.getWrongRefreshToken());
+        stepsUser.logoutUser(token);
+
+        checkStatusCode(404);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getTOKEN_REQUIRED());
+    }
+
+    @Test
+    public void logoutWithEmptyStringToken() {
+        token = new Token("");
+        stepsUser.logoutUser(token);
+
+        checkStatusCode(404);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getTOKEN_REQUIRED());
+    }
+
+    @Test
+    public void logoutWithNullStringToken() {
+        token = new Token(null);
+        stepsUser.logoutUser(token);
+
+        checkStatusCode(404);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getTOKEN_REQUIRED());
+    }
+
+    @Test
+    public void logoutWithoutBody() {
+        stepsUser.logoutUser();
+
+        checkStatusCode(404);
+        checkSuccessMessage(false);
+        checkErrorMessage(messages.getTOKEN_REQUIRED());
     }
 
     @After

@@ -109,6 +109,21 @@ public class StepsUser {
                 .response();
         actualStatusCode = response.getStatusCode();
         actualSuccessMessage = response.path("success");
+        actualErrorMessage = response.path("message");
+        return response;
+    }
+
+    public Response logoutUser() {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .when()
+                .post(paths.getLOGOUT_USER_PATH())
+                .then()
+                .extract()
+                .response();
+        actualStatusCode = response.getStatusCode();
+        actualSuccessMessage = response.path("success");
+        actualErrorMessage = response.path("message");
         return response;
     }
 }
